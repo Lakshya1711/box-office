@@ -18,3 +18,13 @@ suggested to begin by typing:
 
 cd box-office
 npm start
+
+1. React Router v6
+   npm install react-router-dom
+
+2. TVMAZE API
+   https://www.tvmaze.com/api
+   https://api.tvmaze.com/search/shows?q=girls
+
+3. JavaScript Key Code
+   https://www.toptal.com/developers/keycode
