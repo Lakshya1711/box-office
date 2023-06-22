@@ -28,3 +28,6 @@ npm start
 
 3. JavaScript Key Code
    https://www.toptal.com/developers/keycode
+
+4. Styled Components
+   https://styled-components.com/docs/basics
