@@ -1,34 +1,19 @@
 import { useState } from 'react';
 import { searchforShows, searchforPeople } from '../Api/Tvmaze';
-
+import Form from '../Components/Form';
 const Home = () => {
-  const [search, setsearch] = useState('');
   const [apidata, setapidata] = useState(null);
   const [apidataerror, setapidataerror] = useState(null);
-  const [searchoption, setsearchoption] = useState('shows');
-  const onsearchChange = ev => {
-    setsearch(ev.target.value);
-  };
 
-  const onRadioChange = ev => {
-    setsearchoption(ev.target.value);
-  };
-
-  const onsearch = async ev => {
-    ev.preventDefault();
-
+  const onsearch = async ({ q, searchoption }) => {
     try {
       setapidataerror(null);
-
+      let result;
       if (searchoption == 'shows') {
-        const result = await searchforShows(search);
-        setapidata(result);
+        result = await searchforShows(q);
       } else {
-        const result = await searchforPeople(search);
-        setapidata(result);
+        result = await searchforPeople(q);
       }
-
-      const result = await searchforShows(search);
       setapidata(result);
     } catch (error) {
       setapidataerror(error);
@@ -52,33 +37,8 @@ const Home = () => {
 
   return (
     <div>
-      <form onSubmit={onsearch}>
-        <input type="text" value={search} onChange={onsearchChange} />
+      <Form onsearch={onsearch} />
 
-        <label>
-          Shows
-          <input
-            type="radio"
-            name="search-option"
-            value="shows"
-            checked={searchoption === 'shows'}
-            onChange={onRadioChange}
-          />
-        </label>
-
-        <label>
-          Actors
-          <input
-            type="radio"
-            name="search-option"
-            value="actors"
-            checked={searchoption === 'actors'}
-            onChange={onRadioChange}
-          />
-        </label>
-
-        <button type="submit">Search</button>
-      </form>
       <div>{renderApidata()}</div>
     </div>
   );
