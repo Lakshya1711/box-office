@@ -1,51 +1,55 @@
 import { useState } from 'react';
-import { searchforShows, searchforPeople } from '../Api/Tvmaze';
-import Form from '../Components/Form';
-import ShowGrid from '../Components/Shows/ShowGrid';
-import ActorGrid from '../Components/Actors/ActorGrid';
 import { useQuery } from '@tanstack/react-query';
-const Home = () => {
-  const [filter, setfilter] = useState(null);
+import { searchForShows, searchForPeople } from './../api/tvmaze';
+import SearchForm from '../components/SearchForm';
+import ShowGrid from '../components/shows/ShowGrid';
+import ActorsGrid from '../components/actors/ActorsGrid';
+import { TextCenter } from '../components/common/TextCenter';
 
-  const { data: apidata, error: apidataerror } = useQuery({
+const Home = () => {
+  const [filter, setFilter] = useState(null);
+
+  const { data: apiData, error: apiDataError } = useQuery({
     queryKey: ['search', filter],
     queryFn: () =>
-      filter.searchoption == 'shows'
-        ? searchforShows(filter.q)
-        : searchforPeople(filter.q),
+      filter.searchOption === 'shows'
+        ? searchForShows(filter.q)
+        : searchForPeople(filter.q),
     enabled: !!filter,
     refetchOnWindowFocus: false,
   });
 
-  const onsearch = async ({ q, searchoption }) => {
-    setfilter({ q, searchoption });
+  const onSearch = async ({ q, searchOption }) => {
+    setFilter({ q, searchOption });
   };
 
-  const renderApidata = () => {
-    if (apidataerror) {
-      return <div>Error Occured: {apidataerror.message}</div>;
+  const renderApiData = () => {
+    if (apiDataError) {
+      return <TextCenter>Error occured: {apiDataError.message}</TextCenter>;
     }
 
-    if (apidata?.length === 0) {
-      return <div>No result</div>;
+    if (apiData?.length === 0) {
+      return <TextCenter>No results</TextCenter>;
     }
 
-    if (apidata) {
-      return apidata[0].show ? (
-        <ShowGrid shows={apidata} />
+    if (apiData) {
+      return apiData[0].show ? (
+        <ShowGrid shows={apiData} />
       ) : (
-        <ActorGrid actors={apidata} />
+        <ActorsGrid actors={apiData} />
       );
     }
+
     return null;
   };
 
   return (
     <div>
-      <Form onsearch={onsearch} />
+      <SearchForm onSearch={onSearch} />
 
-      <div>{renderApidata()}</div>
+      <div>{renderApiData()}</div>
     </div>
   );
 };
+
 export default Home;

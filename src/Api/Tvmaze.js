@@ -1,17 +1,21 @@
-const Base_URL = 'https://api.tvmaze.com';
+const BASE_URL = 'https://api.tvmaze.com';
 
-const apiget = async query => {
-  const response = await fetch(`${Base_URL}${query}`);
-
-  // https://api.tvmaze.com/search/shows?q=$(search)
-
+const apiGet = async queryString => {
+  const response = await fetch(`${BASE_URL}${queryString}`);
   const body = await response.json();
 
   return body;
 };
 
-export const searchforShows = query => apiget(`/search/shows?q=${query}`);
+export const searchForShows = query => apiGet(`/search/shows?q=${query}`);
 
-export const searchforPeople = query => apiget(`/search/people?q=${query}`);
+export const searchForPeople = query => apiGet(`/search/people?q=${query}`);
 
-export const getShowId = showId => apiget(`/Show/${showId}`);
+export const getShowById = showId =>
+  apiGet(`/shows/${showId}?embed[]=seasons&embed[]=cast`);
+
+export const getShowsByIds = async showIds => {
+  const promises = showIds.map(showId => apiGet(`/shows/${showId}`));
+
+  return Promise.all(promises);
+};
