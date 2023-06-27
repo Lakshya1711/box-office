@@ -31,3 +31,11 @@ npm start
 
 4. Styled Components
    https://styled-components.com/docs/basics
+
+5. Build Deployable file (npm run build)
+
+Deploying on Surge.sh (npm install --global surge)
+
+surge <Build file name>
+
+App Link : https://box-office-1711.surge.sh/#/
