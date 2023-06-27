@@ -8,7 +8,6 @@ const theme = {
     dark: '#353535',
   },
 };
-
 const GlobalStyles = createGlobalStyle`
   body {
     font-family: ${({ theme }) => theme.fontFamily};
@@ -19,7 +18,6 @@ const GlobalStyles = createGlobalStyle`
     padding-right: 15px;
   }
 `;
-
 export const GlobalTheme = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>

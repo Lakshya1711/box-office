@@ -5,7 +5,6 @@ export default function AppTitle(props) {
     title = 'Box Office',
     subtitle = 'Are you looking for a movie or an actor?',
   } = props;
-
   return (
     <TitleWrapper>
       <h1>{title}</h1>
@@ -13,7 +12,6 @@ export default function AppTitle(props) {
     </TitleWrapper>
   );
 }
-
 const TitleWrapper = styled.div`
   text-align: center;
   margin: 0 0 40px;

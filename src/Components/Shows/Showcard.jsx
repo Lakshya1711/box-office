@@ -46,7 +46,6 @@ const ShowCard = ({ name, image, id, summary, onStarMeClick, isStarred }) => {
     </SearchCard>
   );
 };
-
 export default ShowCard;
 
 const ActionSection = styled.div`
@@ -63,7 +62,6 @@ const ActionSection = styled.div`
     }
   }
 `;
-
 const StarBtn = styled.button`
   outline: none;
   border: 1px solid #8e8e8e;
